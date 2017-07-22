@@ -6,11 +6,18 @@ before_script:
 
 - export TZ=Asia/Shanghai
 
+
 install:
+- sdk install gradle 4.0.1
+- mkdir /opt/gradle
+- unzip -d /opt/gradle gradle-4.0.1-bin.zip
+- export PATH=$PATH:/opt/gradle/gradle-4.0.1/bin
 
 script:
 
-- ./gradlew test
+- gradle build
+- gradle test
+- gradle disttar
 
 after_success:
 
