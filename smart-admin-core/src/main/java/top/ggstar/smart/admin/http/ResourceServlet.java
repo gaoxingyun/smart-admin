@@ -7,17 +7,24 @@ import top.ggstar.smart.admin.common.util.FileUtils;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.HttpMethodConstraint;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.charset.spi.CharsetProvider;
 
 
 public abstract class ResourceServlet extends HttpServlet {
 
     private final static Logger LOG = LoggerFactory.getLogger(ResourceServlet.class);
     protected  static String  resourcePath = null;
+
+    private final static String GET = "GET";
+    private final static String POST = "POST";
+    private final static Integer BUFFER_SIZE = 1024;
 
 
     public ResourceServlet(String resourcePath){
@@ -34,6 +41,8 @@ public abstract class ResourceServlet extends HttpServlet {
         String contextPath = request.getContextPath();
         String servletPath = request.getServletPath();
         String requestURI = request.getRequestURI();
+        String method = request.getMethod();
+        String body = null;
 
         response.setCharacterEncoding("utf-8");
 
@@ -43,7 +52,7 @@ public abstract class ResourceServlet extends HttpServlet {
         String uri = contextPath + servletPath;
         String path = requestURI.substring(contextPath.length() + servletPath.length());
 
-        LOG.debug("ContentPath: {}, ServletPath: {}, RequestURI: {}, PATH: {}", contextPath, servletPath, requestURI, path);
+        LOG.debug("ContentPath: {}, ServletPath: {}, RequestURI: {}, Path: {}, Method: {}", contextPath, servletPath, requestURI, path, method);
 
         if (path == null || "".equals(path) || "/".equals(path)) {
             response.sendRedirect(uri + "/index.html");
@@ -51,10 +60,20 @@ public abstract class ResourceServlet extends HttpServlet {
 
         if (path.contains(".json") || path.contains(".api")) {
             String fullUrl = path;
-            if (request.getQueryString() != null && request.getQueryString().length() > 0) {
-                fullUrl += "?" + request.getQueryString();
+
+            if(GET.equalsIgnoreCase(method)) {
+                if (request.getQueryString() != null && request.getQueryString().length() > 0) {
+                    fullUrl += "?" + request.getQueryString();
+                }
+            }else if(POST.equalsIgnoreCase(method)){
+                byte[] buffer = new byte[BUFFER_SIZE];
+                int bodySize = request.getContentLength();
+                int size = request.getInputStream().read(buffer,0, bodySize);
+                body = new String(buffer, Charset.defaultCharset()).trim();
+                request.getInputStream().close();
+                LOG.debug("Request Body: {}",body);
             }
-            response.getWriter().print(process(fullUrl));
+            response.getWriter().print(process(method,fullUrl,body));
             return;
         }
 
@@ -96,5 +115,5 @@ public abstract class ResourceServlet extends HttpServlet {
         response.getWriter().write(text);
     }
 
-    protected abstract String process(String url);
+    protected abstract String process(String method,String url, String body);
 }

@@ -28,14 +28,15 @@ public class SmartAdminService implements SmartAdminServiceMbean{
     }
 
 
-    public String service(String url) {
+    public String service(String method, String url, String body) {
 
         Map<String, String> parameters = getParameters(url);
         Object json = null;
         LOG.debug("SmartAdminService service method param url: {}", url);
         try {
             if (url.startsWith("/sql/query.json")) {
-                json = new SqlService().execQuerySql("select * from test");
+                String sql = JSON.parseObject(body).getString("sql");
+                json = new SqlService().execQuerySql(sql);
                 LOG.debug("exec query sql result: {}", json);
                 String result = returnJSONResult(RESULT_CODE_SUCCESS, json);
                 LOG.debug("query result: {}", result);

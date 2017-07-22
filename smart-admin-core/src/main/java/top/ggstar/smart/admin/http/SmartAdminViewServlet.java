@@ -21,8 +21,8 @@ public class SmartAdminViewServlet extends ResourceServlet {
      * @param url 要请求的的服务地址
      * @return 调用服务后返回的json字符串
      */
-    protected String process(String url) {
-        String resp = smartAdminService.service(url);
+    protected String process(String method,String url, String body) {
+        String resp = smartAdminService.service(method,url,body);
         return resp;
     }
 }

@@ -13,9 +13,12 @@
         $(document).ready(function () {
             $(function(){
                 $('#query').click(function(){
+                    var sql = $("input[id='sql']").val();
                     $.ajax({
-                        type: "GET",
+                        type: "POST",
                         url: "sql/query.json",
+                        contentType: "application/json",
+                        data : JSON.stringify({"sql":sql}),
                         dataType: "json",
                         success: function (json) {
                             console.log(JSON.stringify(json));
@@ -41,12 +44,14 @@
     </h3>
 
     <div class="row">
-        <input id="query" class="btn btn-primary" type="button" value="excute">
+        <form>
+            <input id="sql" type="text" class="form-control">
+            <input id="query" class="btn btn-primary" type="button" value="excute">
+        </form>
+
+
     </div>
 
-    <div class="row">
-        <textarea id="sqltest" class="form-control" rows="10"></textarea>
-    </div>
 </div>
 </body>
 </html>
