@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title class="lang" langKey="xxxx">Sql View</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf8" />
+    <link href='css/bootstrap.min.css' rel="stylesheet" />
+    <link href="css/style.css" type="text/css" rel="stylesheet"/>
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf8"></script>
+
+
+    <script language="JavaScript">
+        $(document).ready(function () {
+            $(function(){
+                $('#query').click(function(){
+                    $.ajax({
+                        type: "GET",
+                        url: "sql/query.json",
+                        dataType: "json",
+                        success: function (json) {
+                            console.log(JSON.stringify(json));
+                            alert(JSON.stringify(json));
+                        },
+                        error: function () {
+                            console.log('error');
+                        }
+                    });
+                });
+            });
+
+        });
+
+
+    </script>
+
+</head>
+<body>
+<div class="container">
+    <h3>
+        Sql View
+    </h3>
+
+    <div class="row">
+        <input id="query" class="btn btn-primary" type="button" value="excute">
+    </div>
+
+    <div class="row">
+        <textarea id="sqltest" class="form-control" rows="10"></textarea>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+rootProject.name = 'smart-admin'
+include 'smart-admin-core'
+include 'smart-admin-boot'
+include 'smart-admin-starter'
+

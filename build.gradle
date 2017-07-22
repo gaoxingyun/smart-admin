@@ -1,0 +1,25 @@
+allprojects{
+    group 'top.ggstar'
+    version '1.0-SNAPSHOT'
+
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        mavenCentral()
+        maven{ url 'https://raw.github.com/gaoxingyun/repo/mvn-repo'}
+    }
+
+    dependencies {
+        testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    }
+}
+
+

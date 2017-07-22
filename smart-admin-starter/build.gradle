@@ -1,0 +1,40 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.4.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        mavenCentral()
+        maven{ url 'https://raw.github.com/gaoxingyun/repo/mvn-repo'}
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+repositories {
+    mavenLocal()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+    mavenCentral()
+    maven{ url 'https://raw.github.com/gaoxingyun/repo/mvn-repo'}
+}
+
+apply plugin: 'org.springframework.boot'
+
+repositories {
+    mavenLocal()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+    mavenCentral()
+    maven{ url 'https://raw.github.com/gaoxingyun/repo/mvn-repo'}
+}
+
+dependencies {
+    compile project(':smart-admin-core')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    runtime('org.springframework.boot:spring-boot-devtools')
+    compile('org.springframework.boot:spring-boot-starter-test')
+    compile("javax.servlet:javax.servlet-api:+")
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
