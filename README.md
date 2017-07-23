@@ -1,6 +1,7 @@
 # smart-admin
 
-[![Build Status](https://travis-ci.org/gaoxingyun/smart-admin.svg?branch=master)](https://travis-ci.org/gaoxingyun/smart-admin)
+[![master Build Status](https://travis-ci.org/gaoxingyun/smart-admin.svg?branch=master)](https://travis-ci.org/gaoxingyun/smart-admin)
+[![dev Build Status](https://travis-ci.org/gaoxingyun/smart-admin.svg?branch=dev)](https://travis-ci.org/gaoxingyun/smart-admin)
 
 #### 目标
 
