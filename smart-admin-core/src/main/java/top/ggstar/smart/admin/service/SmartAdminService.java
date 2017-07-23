@@ -79,8 +79,8 @@ public class SmartAdminService implements SmartAdminServiceMbean{
 
     public static String returnJSONResult(int resultCode, Object content) {
         Map<String, Object> dataMap = new LinkedHashMap<String, Object>();
-        dataMap.put("ResultCode", resultCode);
-        dataMap.put("Content", content);
+        dataMap.put("result_code", resultCode);
+        dataMap.put("content", content);
         return JSON.toJSONString(dataMap);
     }
 }

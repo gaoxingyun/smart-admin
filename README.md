@@ -12,3 +12,21 @@
 - smart-admin-core 核心模块
 - smart-admin-starter spring-boot自动配置模块
 - smart-admin-boot spring-boot运行模块
+
+
+#### 快速开始
+
+###### gradle
+
+- 添加自定义maven仓库
+``` gradle
+maven{ url 'https://raw.github.com/gaoxingyun/repo/mvn-repo'}
+```
+- 添加依赖
+``` gradle
+compile('top.ggstar:smart-admin-starter')
+```
+- 打开地址 
+```
+http://${IP}:${PORT}/smart-admin
+```

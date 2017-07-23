@@ -20,9 +20,33 @@
                         contentType: "application/json",
                         data : JSON.stringify({"sql":sql}),
                         dataType: "json",
-                        success: function (json) {
-                            console.log(JSON.stringify(json));
-                            alert(JSON.stringify(json));
+                        success: function (res) {
+                            console.log(JSON.stringify(res));
+                            if(res.result_code < 0){
+                                return;
+                            }
+
+                            var content = res.content;
+
+                            if(content.length <= 0 ){
+                                return;
+                            }
+
+                            // 清空表格
+                            $("#querytable").html("");
+
+                            var th;
+                            $.each(content[0], function (key, value) {
+                                th+="<th>" + key + "</th>";
+                            });
+                            $("#querytable").append("<tr>" + th + "</tr>");
+                            $.each(content, function (i, item) {
+                                var tr;
+                                $.each(item, function (key,value) {
+                                    tr+='<td>'+value+'</td>'
+                                })
+                                $("#querytable").append('<tr>'+tr+'</tr>');
+                            })
                         },
                         error: function () {
                             console.log('error');
@@ -38,20 +62,28 @@
 
 </head>
 <body>
-<div class="container">
-    <h3>
-        Sql View
-    </h3>
+<div class="container-fluid">
+
+    <div class="container">
+    <div class="row">
+        <h3>
+            Sql View
+        </h3>
+    </div>
 
     <div class="row">
         <form>
             <input id="sql" type="text" class="form-control">
             <input id="query" class="btn btn-primary" type="button" value="excute">
         </form>
-
-
     </div>
-
+    </div>
+    <div class="container">
+    <div class="row">
+    <table class="table table-striped table-bordered" id="querytable">
+    </table>
+    </div>
+    </div>
 </div>
 </body>
 </html>
