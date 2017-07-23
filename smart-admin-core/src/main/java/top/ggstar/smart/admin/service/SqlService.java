@@ -4,10 +4,7 @@ import top.ggstar.smart.admin.model.SmartAdminDataSource;
 
 import javax.sql.DataSource;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * sql数据库服务
@@ -28,7 +25,7 @@ public class SqlService {
             ResultSetMetaData md = resultSet.getMetaData(); //获得结果集结构信息,元数据
             int columnCount = md.getColumnCount();   //获得列数
             while (resultSet.next()) {
-                Map<String,Object> rowData = new HashMap<String,Object>();
+                Map<String,Object> rowData = new LinkedHashMap<String,Object>();
                 for (int i = 1; i <= columnCount; i++) {
                     rowData.put(md.getColumnName(i), resultSet.getObject(i));
                 }
